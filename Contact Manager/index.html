@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Contact Manager</title>
+    <style>
+        .cards{
+            height: 80px;
+            width: 600px;
+            background-color: bisque;
+            margin-left: 390px;
+            margin-top: 15px;
+            border-radius: 10px;
+            box-shadow: 1px 2px 10px palevioletred;
+        }
+        .cards span{
+            margin-left: 40px;
+        }
+        .cards label{
+            margin-left: 40px;
+        }
+        .cards button{
+            height: 40px;
+            width: 70px;
+            background-color: transparent;
+            border: 2px solid black;
+            color: rgb(140, 55, 55);
+            font-weight: bold;
+            margin-left: 470px;
+            position: relative;
+            top: -30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="heading">
+        <h1>Contact Manager</h1>
+    </div>
+    <div class="Container">
+        <br><span>Name</span>
+        <br><input type="text" name="name" id="userName" placeholder="Enter your name...">
+        <br><br><span>Email</span>
+        <br><input type="email" name="email" id="emailId" placeholder="abc@gmail.com">
+        <br><br><button onclick="Submit()">Submit</button>
+    </div>
+    <div id="display"></div>
+
+    <script>
+        var storeValue = JSON.parse(localStorage.getItem("storeValue")) || [];
+
+        function Submit() {
+            var userName = document.getElementById("userName").value;
+            var emailId = document.getElementById("emailId").value;
+
+            storeValue.push({
+                name: userName,
+                email: emailId
+            });
+
+            localStorage.setItem("storeValue", JSON.stringify(storeValue));
+            display();
+        }
+
+        function display() {
+            var displayDiv = document.getElementById("display");
+            displayDiv.innerHTML = '';
+            storeValue.forEach((contact, index) => {
+                displayDiv.innerHTML += `
+                    <div class="cards">
+                        <span>${contact.name}</span>
+                        <br><label>${contact.email}</label>
+                        <button onclick="Delete(${index})">Delete</button>
+                    </div>
+                `;
+            });
+        }
+
+        function Delete(index) {
+            storeValue.splice(index, 1);
+            localStorage.setItem("storeValue", JSON.stringify(storeValue));
+            display();
+        }
+
+        
+        display();
+    </script>
+</body>
+</html>
