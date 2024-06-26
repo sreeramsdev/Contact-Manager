@@ -60,10 +60,10 @@
             });
 
             localStorage.setItem("storeValue", JSON.stringify(storeValue));
-            display();
+            display(storeValue);
         }
 
-        function display() {
+        function display(toreValue) {
             var displayDiv = document.getElementById("display");
             displayDiv.innerHTML = '';
             storeValue.forEach((contact, index) => {
@@ -75,6 +75,8 @@
                     </div>
                 `;
             });
+            var userName = document.getElementById("userName").value='';
+            var emailId = document.getElementById("emailId").value='';
         }
 
         function Delete(index) {
